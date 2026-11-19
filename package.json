@@ -78,6 +78,11 @@
       "lightningcss"
     ]
   },
+  "overrides": {
+    "vite-plugin-neon-new": {
+      "vite": "$vite"
+    }
+  },
   "intent": {
     "skills": [
       "*"
