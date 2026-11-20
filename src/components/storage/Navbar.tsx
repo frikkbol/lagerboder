@@ -102,7 +102,7 @@ export function Navbar({ className, onReserveClick, ...props }: NavbarProps) {
             title="Send oss en e-post"
           >
             <Mail className="size-3.5 text-primary" />
-            <span>post@leieboder.no</span>
+            <span>plassholder@epost.no</span>
           </a>
 
           {/* Primary CTA */}
@@ -155,7 +155,7 @@ export function Navbar({ className, onReserveClick, ...props }: NavbarProps) {
               className="flex items-center gap-2 text-sm font-semibold text-slate-700 py-2 px-3 rounded-lg bg-slate-50"
             >
               <Mail className="size-4 text-primary" />
-              <span>Send e-post: post@leieboder.no</span>
+              <span>Send e-post: plassholder@epost.no</span>
             </a>
             <Button
               onClick={handleActionClick}

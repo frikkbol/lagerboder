@@ -49,7 +49,7 @@ export function ContactSection({ className, ...props }: ContactSectionProps) {
               <div>
                 <span className="text-xs text-slate-500 block">E-post</span>
                 <span className="text-base font-bold text-slate-900">
-                  post@leieboder.no
+                  plassholder@epost.no
                 </span>
               </div>
             </a>

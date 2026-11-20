@@ -66,11 +66,11 @@ export function BrandLogo({
               isDark ? 'text-white' : 'text-slate-900',
             )}
           >
-            Leieboder
+            Lagerboder
           </span>
-          <span className="text-xl font-extrabold tracking-tight text-primary">
+          {/* <span className="text-xl font-extrabold tracking-tight text-primary">
             .no
-          </span>
+          </span> */}
         </div>
         {showSubtitle && (
           <span
@@ -79,7 +79,7 @@ export function BrandLogo({
               isDark ? 'text-slate-400' : 'text-slate-500',
             )}
           >
-            Holmestrand
+            i Holmestrand
           </span>
         )}
       </div>
