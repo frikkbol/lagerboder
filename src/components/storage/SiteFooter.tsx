@@ -25,17 +25,13 @@ export function SiteFooter({ className, ...props }: SiteFooterProps) {
             </p>
           </div>
 
-          {/* Col 2: Locations */}
+          {/* Col 2: Location */}
           <div className="flex flex-col gap-2.5">
-            <h4 className="text-sm font-bold text-white">Våre adresser</h4>
+            <h4 className="text-sm font-bold text-white">Adresse</h4>
             <div className="space-y-2 text-sm text-slate-400">
               <div className="flex items-center gap-2">
                 <MapPin className="size-4 text-primary shrink-0" />
-                <span>Harestien 15, 3189 Holmestrand</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="size-4 text-primary shrink-0" />
-                <span>Beverstien 3, 3188 Holmestrand</span>
+                <span>Burmaveien 1, Holmestrand</span>
               </div>
             </div>
           </div>

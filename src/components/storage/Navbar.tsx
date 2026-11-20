@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Phone, Menu, X, ArrowRight } from 'lucide-react'
+import { Mail, Menu, X, ArrowRight } from 'lucide-react'
 import { Button } from '#/components/ui/button'
 import { BrandLogo } from './BrandLogo'
 import { cn } from '#/lib/utils'
@@ -22,7 +22,7 @@ export function Navbar({ className, onReserveClick, ...props }: NavbarProps) {
 
   const navLinks = [
     { label: 'Velg bod', href: '#interactive-map' },
-    { label: 'Priser', href: '#priser' },
+    // { label: 'Priser', href: '#priser' },
     { label: 'Spørsmål & svar', href: '#faq' },
     { label: 'Kontakt', href: '#kontakt' },
   ]
@@ -95,14 +95,14 @@ export function Navbar({ className, onReserveClick, ...props }: NavbarProps) {
 
         {/* Action Controls */}
         <div className="flex items-center gap-3">
-          {/* Quick Phone contact */}
+          {/* Quick Email contact */}
           <a
-            href="tel:+4733000000"
+            href="mailto:post@leieboder.no"
             className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-primary transition-colors py-2 px-3 rounded-full hover:bg-slate-100"
-            title="Ring oss"
+            title="Send oss en e-post"
           >
-            <Phone className="size-3.5 text-primary" />
-            <span>33 00 00 00</span>
+            <Mail className="size-3.5 text-primary" />
+            <span>post@leieboder.no</span>
           </a>
 
           {/* Primary CTA */}
@@ -151,11 +151,11 @@ export function Navbar({ className, onReserveClick, ...props }: NavbarProps) {
 
           <div className="pt-3 border-t border-slate-200 flex flex-col gap-2.5">
             <a
-              href="tel:+4733000000"
+              href="mailto:post@leieboder.no"
               className="flex items-center gap-2 text-sm font-semibold text-slate-700 py-2 px-3 rounded-lg bg-slate-50"
             >
-              <Phone className="size-4 text-primary" />
-              <span>Ring kundeservice: 33 00 00 00</span>
+              <Mail className="size-4 text-primary" />
+              <span>Send e-post: post@leieboder.no</span>
             </a>
             <Button
               onClick={handleActionClick}

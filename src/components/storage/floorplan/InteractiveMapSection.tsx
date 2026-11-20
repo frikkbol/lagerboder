@@ -1,80 +1,25 @@
 import * as React from 'react'
-import { FloorplanControls } from './FloorplanControls'
 import { FloorplanCanvas } from './FloorplanCanvas'
 import { UnitDetailPanel } from './UnitDetailPanel'
 import type { BookingFormData } from './UnitDetailPanel'
 import { BookingModal } from '../BookingModal'
 import { LOCATIONS, STORAGE_UNITS } from '#/data/storage-data'
-import type {
-  StorageLocationId,
-  StorageUnitStatus,
-  StorageUnit,
-} from '#/types/storage'
+import type { StorageUnit } from '#/types/storage'
 import { cn } from '#/lib/utils'
 
 export interface InteractiveMapSectionProps extends React.ComponentProps<'section'> {
-  location?: StorageLocationId
-  onLocationChange?: (loc: StorageLocationId) => void
-  sizeFilter?: number | 'all'
-  onSizeChange?: (size: number | 'all') => void
-  initialLocation?: StorageLocationId
   initialUnitId?: string
 }
 
 export function InteractiveMapSection({
-  location: controlledLocation,
-  onLocationChange: controlledOnLocationChange,
-  sizeFilter: controlledSizeFilter,
-  onSizeChange: controlledOnSizeChange,
-  initialLocation = 'harestien',
   initialUnitId = '104',
   className,
   ...props
 }: InteractiveMapSectionProps) {
-  const [internalLocation, setInternalLocation] =
-    React.useState<StorageLocationId>(initialLocation)
-  const [internalSizeFilter, setInternalSizeFilter] = React.useState<
-    number | 'all'
-  >('all')
-  const [statusFilter, setStatusFilter] = React.useState<
-    StorageUnitStatus | 'all'
-  >('all')
-
-  const selectedLocation = controlledLocation ?? internalLocation
-  const sizeFilter = controlledSizeFilter ?? internalSizeFilter
-
   // Active selected unit
   const [selectedUnit, setSelectedUnit] = React.useState<StorageUnit>(() => {
     return STORAGE_UNITS.find((u) => u.id === initialUnitId) || STORAGE_UNITS[0]
   })
-
-  const handleLocationChange = (loc: StorageLocationId) => {
-    if (controlledOnLocationChange) {
-      controlledOnLocationChange(loc)
-    } else {
-      setInternalLocation(loc)
-    }
-    const firstAvailable =
-      STORAGE_UNITS.find(
-        (u) => u.locationId === loc && u.status === 'available',
-      ) || STORAGE_UNITS.find((u) => u.locationId === loc)
-    if (firstAvailable) {
-      setSelectedUnit(firstAvailable)
-    }
-  }
-
-  const handleSizeChange = (size: number | 'all') => {
-    if (controlledOnSizeChange) {
-      controlledOnSizeChange(size)
-    } else {
-      setInternalSizeFilter(size)
-    }
-  }
-
-  // Current units for active location
-  const locationUnits = React.useMemo(() => {
-    return STORAGE_UNITS.filter((u) => u.locationId === selectedLocation)
-  }, [selectedLocation])
 
   // Booking Modal state
   const [bookingModalOpen, setBookingModalOpen] = React.useState(false)
@@ -105,33 +50,20 @@ export function InteractiveMapSection({
           </p>
         </div>
 
-        {/* Filter Controls Bar */}
-        <FloorplanControls
-          selectedLocation={selectedLocation}
-          onLocationChange={handleLocationChange}
-          selectedSize={sizeFilter}
-          onSizeChange={handleSizeChange}
-          selectedStatus={statusFilter}
-          onStatusChange={setStatusFilter}
-          className="mb-6"
-        />
-
         {/* Canvas + Detail Split View */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           {/* Floorplan (7 Cols) */}
           <div className="lg:col-span-7">
             <FloorplanCanvas
-              location={LOCATIONS[selectedLocation]}
-              units={locationUnits}
+              location={LOCATIONS.burmaveien}
+              units={STORAGE_UNITS}
               selectedUnit={selectedUnit}
               onSelectUnit={setSelectedUnit}
-              sizeFilter={sizeFilter}
-              statusFilter={statusFilter}
             />
           </div>
 
           {/* Selected Unit Details Panel (5 Cols) */}
-          <div className="lg:col-span-5 sticky top-24">
+          <div className="lg:col-span-5 top-24">
             <UnitDetailPanel unit={selectedUnit} onBookUnit={handleBookUnit} />
           </div>
         </div>

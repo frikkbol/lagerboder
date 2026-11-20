@@ -24,18 +24,18 @@ export function LocationCards({
     }
   }
 
-  const locations = [LOCATIONS.harestien, LOCATIONS.beverstien]
+  const locations = [LOCATIONS.burmaveien]
 
   return (
     <section
-      id="avdelinger"
+      id="avdeling"
       className={cn('w-full py-16 md:py-20 scroll-mt-16', className)}
       {...props}
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-            To avdelinger i Holmestrand
+            Vår avdeling i Holmestrand
           </h2>
           <p className="text-base text-slate-600 mt-2">
             Enkel adkomst med bil og tilhenger, og gratis parkering rett utenfor
@@ -43,7 +43,7 @@ export function LocationCards({
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+        <div className="grid grid-cols-1 max-w-xl mx-auto gap-6 items-stretch">
           {locations.map((loc) => (
             <div
               key={loc.id}
@@ -57,7 +57,9 @@ export function LocationCards({
                   <p className="text-sm text-slate-500 flex items-center gap-1.5 mt-1">
                     <MapPin className="size-4 text-primary shrink-0" />
                     <span>
-                      {loc.address}, {loc.postalCode} {loc.city}
+                      {loc.address},{' '}
+                      {loc.postalCode ? `${loc.postalCode} ` : ''}
+                      {loc.city}
                     </span>
                   </p>
                 </div>

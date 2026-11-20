@@ -13,7 +13,6 @@ export interface FloorplanCanvasProps extends React.ComponentProps<'div'> {
   units: StorageUnit[]
   selectedUnit: StorageUnit
   onSelectUnit: (unit: StorageUnit) => void
-  sizeFilter: number | 'all'
   statusFilter?: StorageUnitStatus | 'all'
 }
 
@@ -22,23 +21,19 @@ export function FloorplanCanvas({
   units,
   selectedUnit,
   onSelectUnit,
-  sizeFilter,
   statusFilter = 'all',
   className,
   ...props
 }: FloorplanCanvasProps) {
   const isUnitMatching = (u: StorageUnit) => {
-    const matchSize = sizeFilter === 'all' || u.size === sizeFilter
-    let matchStatus = true
-    if (statusFilter === 'available') matchStatus = u.status === 'available'
-    if (statusFilter === 'soon') matchStatus = u.status === 'soon'
-    return matchSize && matchStatus
+    if (statusFilter === 'available') return u.status === 'available'
+    if (statusFilter === 'soon') return u.status === 'soon'
+    return true
   }
 
-  const isHarestien = location.id === 'harestien'
   const row1 = units.slice(0, 4)
   const row2 = units.slice(4, 8)
-  const row3 = isHarestien ? units.slice(8, 12) : []
+  const row3 = units.slice(8, 12)
 
   return (
     <div
@@ -53,9 +48,6 @@ export function FloorplanCanvas({
         <div>
           <span className="font-bold text-slate-900 text-base">
             {location.name}
-          </span>
-          <span className="text-sm text-slate-500 ml-2">
-            {location.floorDescription}
           </span>
         </div>
 
@@ -115,8 +107,8 @@ export function FloorplanCanvas({
             ))}
           </div>
 
-          {/* Row 3 for Harestien */}
-          {isHarestien && row3.length > 0 && (
+          {/* Row 3 */}
+          {row3.length > 0 && (
             <>
               <div className="py-1.5 text-center text-[11px] font-medium text-slate-400">
                 Gang

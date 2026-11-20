@@ -63,9 +63,6 @@ export function UnitDetailPanel({
       {/* Header of selected unit */}
       <div className="flex items-start justify-between gap-4 pb-4 border-b border-slate-100">
         <div>
-          <span className="text-xs font-medium text-slate-500">
-            {unit.locationName} • Bod {unit.id}
-          </span>
           <h3 className="text-2xl font-extrabold text-slate-900 mt-0.5">
             {unit.size.toFixed(1).replace('.0', '').replace('.', ',')} m² bod
           </h3>
@@ -94,9 +91,6 @@ export function UnitDetailPanel({
             </span>
             <span className="text-xs text-slate-500 font-medium">/mnd</span>
           </div>
-          <span className="text-xs text-slate-400 block mt-0.5">
-            Ingen bindingstid
-          </span>
         </div>
       </div>
 

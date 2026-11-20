@@ -1,6 +1,6 @@
 export type StorageUnitStatus = 'available' | 'soon' | 'occupied'
 
-export type StorageLocationId = 'harestien' | 'beverstien'
+export type StorageLocationId = 'burmaveien'
 
 export interface StorageUnit {
   id: string

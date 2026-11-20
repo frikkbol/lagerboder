@@ -37,7 +37,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       {
         name: 'description',
         content:
-          'Nye, tørre og oppvarmede lagerboder til leie sentralt i holmestrand ved Harestien 15 og Beverstien 3. Finn din ledige bod på interaktivt kart og book direkte.',
+          'Nye, tørre og oppvarmede lagerboder til leie sentralt i Holmestrand i Burmaveien 1. Finn din ledige bod på interaktivt kart og book direkte.',
       },
     ],
     links: [

@@ -6,8 +6,6 @@ import { cn } from '#/lib/utils'
 export interface HeroSectionProps extends React.ComponentProps<'section'> {
   onExploreMapClick?: () => void
   totalAvailable?: number
-  harestienAvailable?: number
-  beverstienAvailable?: number
 }
 
 export function HeroSection({
@@ -53,9 +51,8 @@ export function HeroSection({
         </h1>
 
         <p className="text-lg sm:text-xl text-slate-600 leading-relaxed max-w-2xl mt-5">
-          Trenger du mer plass hjemme? Lei en tørr og oppvarmet lagerbod ved
-          Harestien 15 eller Beverstien 3. Velg en ledig bod nedenfor og flytt
-          inn når det passer deg.
+          Lei en tørr og oppvarmet lagerbod i Burmaveien 1. Velg en ledig bod
+          nedenfor og flytt inn når det passer deg.
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-3.5 mt-8">
@@ -67,14 +64,14 @@ export function HeroSection({
             <span>Finn ledig bod</span>
             <ArrowDown className="size-4" />
           </Button>
-          <Button
+          {/* <Button
             onClick={handleScrollToPrices}
             variant="outline"
             size="lg"
             className="font-semibold px-6 h-12 rounded-xl border-slate-300 text-slate-700 hover:bg-slate-50 text-base"
           >
             Se priser og størrelser
-          </Button>
+          </Button> */}
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 mt-8 text-sm text-slate-600 font-medium">
