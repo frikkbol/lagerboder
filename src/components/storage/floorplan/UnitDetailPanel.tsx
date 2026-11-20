@@ -102,7 +102,7 @@ export function UnitDetailPanel({
                 ? 'text-emerald-700'
                 : isSoon
                   ? 'text-amber-700'
-                  : 'text-slate-500',
+                  : 'text-red-600',
             )}
           >
             {isAvailable
@@ -113,14 +113,16 @@ export function UnitDetailPanel({
           </span>
         </div>
 
-        <div className="text-right">
-          <div className="flex items-baseline justify-end gap-1">
-            <span className="text-2xl font-extrabold text-slate-900">
-              {unit.price} kr
-            </span>
-            <span className="text-xs text-slate-500 font-medium">/mnd</span>
+        {!isOccupied && (
+          <div className="text-right">
+            <div className="flex items-baseline justify-end gap-1">
+              <span className="text-2xl font-extrabold text-slate-900">
+                {unit.price} kr
+              </span>
+              <span className="text-xs text-slate-500 font-medium">/mnd</span>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* What fits inside */}

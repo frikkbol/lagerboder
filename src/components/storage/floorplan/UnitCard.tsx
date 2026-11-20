@@ -36,7 +36,7 @@ export function UnitCard({
       'bg-white text-slate-900 border-amber-300 hover:border-amber-500 hover:bg-amber-50/40'
   } else {
     statusStyles =
-      'bg-slate-100 text-slate-400 border-slate-200 opacity-75 hover:opacity-100'
+      'bg-red-600 text-white border-red-700 hover:bg-red-700'
   }
 
   const getStatusText = () => {
@@ -49,7 +49,11 @@ export function UnitCard({
     <button
       type="button"
       aria-selected={isSelected}
-      aria-label={`Bod ${unit.id}, ${unit.size} kvadratmeter, ${unit.price} kroner per måned`}
+      aria-label={
+        isOccupied
+          ? `Bod ${unit.id}, ${unit.size} kvadratmeter, utleid`
+          : `Bod ${unit.id}, ${unit.size} kvadratmeter, ${unit.price} kroner per måned`
+      }
       onClick={() => onSelect(unit)}
       className={cn(
         'relative rounded-xl p-3 flex flex-col justify-between text-left border transition-all cursor-pointer min-h-[84px]',
@@ -64,11 +68,7 @@ export function UnitCard({
         <span
           className={cn(
             'font-bold text-sm sm:text-base',
-            isSelected
-              ? 'text-white'
-              : isOccupied
-                ? 'text-slate-400'
-                : 'text-slate-900',
+            isSelected || isOccupied ? 'text-white' : 'text-slate-900',
           )}
         >
           {unit.size.toFixed(1).replace('.0', '').replace('.', ',')} m²
@@ -81,7 +81,9 @@ export function UnitCard({
               ? 'bg-emerald-500'
               : isSoon
                 ? 'bg-amber-500'
-                : 'bg-slate-300',
+                : isSelected
+                  ? 'bg-red-500'
+                  : 'bg-white/80',
           )}
         />
       </div>
@@ -97,24 +99,22 @@ export function UnitCard({
                 ? 'text-emerald-700'
                 : isSoon
                   ? 'text-amber-700'
-                  : 'text-slate-400',
+                  : 'text-white',
           )}
         >
           {getStatusText()}
         </span>
 
-        <span
-          className={cn(
-            'text-xs font-bold',
-            isSelected
-              ? 'text-white'
-              : isOccupied
-                ? 'text-slate-400'
-                : 'text-slate-700',
-          )}
-        >
-          {unit.price} kr
-        </span>
+        {!isOccupied && (
+          <span
+            className={cn(
+              'text-xs font-bold',
+              isSelected ? 'text-white' : 'text-slate-700',
+            )}
+          >
+            {unit.price} kr
+          </span>
+        )}
       </div>
     </button>
   )

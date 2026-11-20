@@ -62,7 +62,7 @@ export function FloorplanCanvas({
             <span>Ledig snart</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="size-3 rounded-full bg-slate-300"></span>
+            <span className="size-3 rounded-full bg-red-600"></span>
             <span>Utleid</span>
           </div>
         </div>
