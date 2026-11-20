@@ -3,6 +3,7 @@ import { Check } from 'lucide-react'
 import { Button } from '#/components/ui/button'
 import { Input } from '#/components/ui/input'
 import { Label } from '#/components/ui/label'
+import { submitBookingRequest } from '#/server/booking'
 import type { StorageUnit } from '#/types/storage'
 import { cn } from '#/lib/utils'
 
@@ -30,8 +31,9 @@ export function UnitDetailPanel({
     email: '',
     moveInDate: '2026-05-01',
   })
-
+  const [website, setWebsite] = React.useState('')
   const [isSubmitting, setIsSubmitting] = React.useState(false)
+  const [errorMessage, setErrorMessage] = React.useState<string | null>(null)
 
   const isAvailable = unit.status === 'available'
   const isSoon = unit.status === 'soon'
@@ -43,13 +45,40 @@ export function UnitDetailPanel({
     return 'Sett meg på venteliste'
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setErrorMessage(null)
     setIsSubmitting(true)
-    setTimeout(() => {
+
+    try {
+      await submitBookingRequest({
+        data: {
+          unitId: unit.id,
+          fullName: formData.fullName,
+          phone: formData.phone,
+          email: formData.email,
+          moveInDate: formData.moveInDate,
+          website,
+        },
+      })
+
+      const submittedData = { ...formData }
+      setFormData((prev) => ({
+        ...prev,
+        fullName: '',
+        phone: '',
+        email: '',
+      }))
+      onBookUnit(unit, submittedData)
+    } catch (err) {
+      const message =
+        err instanceof Error && err.message
+          ? err.message
+          : 'Noe gikk galt ved innsending. Prøv igjen eller kontakt oss direkte.'
+      setErrorMessage(message)
+    } finally {
       setIsSubmitting(false)
-      onBookUnit(unit, formData)
-    }, 300)
+    }
   }
 
   return (
@@ -111,6 +140,17 @@ export function UnitDetailPanel({
 
       {/* Simple Booking Form */}
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+        {/* Honeypot field to catch bots without friction for real users */}
+        <input
+          type="text"
+          name="website"
+          value={website}
+          onChange={(e) => setWebsite(e.target.value)}
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          className="hidden"
+        />
         <div className="space-y-2.5">
           <div>
             <Label htmlFor="book-fullName" className="sr-only">
@@ -181,6 +221,15 @@ export function UnitDetailPanel({
             />
           </div>
         </div>
+
+        {errorMessage && (
+          <p
+            role="alert"
+            className="text-xs font-medium text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2"
+          >
+            {errorMessage}
+          </p>
+        )}
 
         <Button
           type="submit"

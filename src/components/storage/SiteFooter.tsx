@@ -53,7 +53,7 @@ export function SiteFooter({ className, ...props }: SiteFooterProps) {
                 className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors"
               >
                 <Mail className="size-4 text-primary shrink-0" />
-                <span>post@leieboder.no</span>
+                <span>plassholder@epost.no</span>
               </a>
             </div>
           </div>
