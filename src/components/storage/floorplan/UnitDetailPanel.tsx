@@ -40,9 +40,9 @@ export function UnitDetailPanel({
   const isOccupied = unit.status === 'occupied'
 
   const getCtaText = () => {
-    if (isAvailable) return 'Lei denne boden'
-    if (isSoon) return `Reserver fra ${unit.availableDate}`
-    return 'Sett meg på venteliste'
+    if (isAvailable) return 'Send forespørsel'
+    if (isSoon) return `Send forespørsel`
+    return 'Send forespørsel'
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
