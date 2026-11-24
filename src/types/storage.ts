@@ -66,3 +66,10 @@ export interface UseCase {
   title: string
   description: string
 }
+
+export interface FacilityImage {
+  id: string
+  src: string
+  alt: string
+  caption?: string
+}

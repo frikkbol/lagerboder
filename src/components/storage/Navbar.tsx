@@ -22,6 +22,7 @@ export function Navbar({ className, onReserveClick, ...props }: NavbarProps) {
 
   const navLinks = [
     { label: 'Velg bod', href: '#interactive-map' },
+    { label: 'Bilder', href: '#bilder' },
     // { label: 'Priser', href: '#priser' },
     { label: 'Spørsmål & svar', href: '#faq' },
     { label: 'Kontakt', href: '#kontakt' },

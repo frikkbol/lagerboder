@@ -4,6 +4,7 @@ import type {
   PricingTier,
   FaqItem,
   FacilityFeature,
+  FacilityImage,
   UseCase,
 } from '#/types/storage'
 
@@ -395,6 +396,15 @@ export const FACILITY_FEATURES: FacilityFeature[] = [
     description:
       'Ingen trapper eller tunge løft. Lån traller gratis ved inngangen og trill tingene rett fra bilen og inn i boden.',
     tagline: 'Lån traller gratis',
+  },
+]
+
+export const FACILITY_IMAGES: FacilityImage[] = [
+  {
+    id: 'korridor-1',
+    src: '/images/facility/korridor.jpg',
+    alt: 'Lys og ren korridor med lagerboder i Burmaveien 1',
+    caption: 'Bred, lys og tørr korridor med egen dør til hver bod',
   },
 ]
 
