@@ -25,6 +25,8 @@ export interface FloorplanBuilderOptions {
   height?: number
   /** Meter grid step for background grid lines (default: 1) */
   gridStep?: number
+  /** Optional default rendering scale in pixels per meter */
+  pixelsPerMeter?: number
 }
 
 export interface UnitPlacementInput {
@@ -508,6 +510,7 @@ class FloorplanBuilder {
       width: totalWidth,
       height: totalHeight,
       gridStep: this.options.gridStep ?? 1,
+      pixelsPerMeter: this.options.pixelsPerMeter,
       units: Object.freeze([...this.units]),
       corridors: Object.freeze(resolvedCorridors),
       entrances: Object.freeze([...this.entrances]),

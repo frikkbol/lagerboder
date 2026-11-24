@@ -189,10 +189,11 @@ export function FloorplanCanvas({
   selectedUnit,
   onSelectUnit,
   statusFilter = 'all',
-  pixelsPerMeter = 64,
+  pixelsPerMeter,
   className,
   ...props
 }: FloorplanCanvasProps) {
+  const scale = pixelsPerMeter ?? layout.pixelsPerMeter ?? 64
   const isUnitMatching = (u: StorageUnit) => {
     if (statusFilter === 'available') return u.status === 'available'
     if (statusFilter === 'soon') return u.status === 'soon'
@@ -215,13 +216,13 @@ export function FloorplanCanvas({
   const padBottom = hasBottomEntrance ? 50 : 16
   const scaleBarBand = 26
 
-  const interiorWidthPx = layout.width * pixelsPerMeter
-  const interiorHeightPx = layout.height * pixelsPerMeter
+  const interiorWidthPx = layout.width * scale
+  const interiorHeightPx = layout.height * scale
   const svgWidth = interiorWidthPx + padLeft + padRight
   const svgHeight = interiorHeightPx + padTop + padBottom + scaleBarBand
 
   const gridPatternId = React.useId()
-  const gridStepPx = layout.gridStep * pixelsPerMeter
+  const gridStepPx = layout.gridStep * scale
 
   const showFloorTabs =
     floorplans !== undefined &&
@@ -271,10 +272,13 @@ export function FloorplanCanvas({
         <div
           role="tablist"
           aria-label="Velg etasje eller sone"
-          className="flex flex-wrap items-center gap-1.5 mt-3"
+          className="inline-flex flex-wrap items-center gap-1.5 mt-4 p-1 bg-slate-100 rounded-xl w-fit"
         >
           {floorplans.map((fp) => {
             const isActive = fp.id === layout.id
+            const floorAvailableCount = fp.units.filter(
+              (p) => unitMap.get(p.unitId)?.status === 'available',
+            ).length
             return (
               <button
                 key={fp.id}
@@ -283,13 +287,23 @@ export function FloorplanCanvas({
                 aria-selected={isActive}
                 onClick={() => onSelectFloorplan(fp)}
                 className={cn(
-                  'px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer',
+                  'px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all cursor-pointer flex items-center gap-2',
                   isActive
-                    ? 'bg-slate-900 text-white'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200/80 hover:text-slate-900',
+                    ? 'bg-slate-900 text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900',
                 )}
               >
-                {fp.name}
+                <span>{fp.name}</span>
+                <span
+                  className={cn(
+                    'text-[11px] font-medium px-1.5 py-0.5 rounded-md',
+                    isActive
+                      ? 'bg-white/15 text-slate-200'
+                      : 'bg-slate-200/80 text-slate-600',
+                  )}
+                >
+                  {floorAvailableCount} ledige
+                </span>
               </button>
             )
           })}
@@ -348,10 +362,10 @@ export function FloorplanCanvas({
 
               {/* Corridors */}
               {layout.corridors.map((corridor) => {
-                const cx = corridor.x * pixelsPerMeter
-                const cy = corridor.y * pixelsPerMeter
-                const cw = corridor.width * pixelsPerMeter
-                const ch = corridor.height * pixelsPerMeter
+                const cx = corridor.x * scale
+                const cy = corridor.y * scale
+                const cw = corridor.width * scale
+                const ch = corridor.height * scale
                 const isVertical = corridor.orientation === 'vertical'
                 const labelX = cx + cw / 2
                 const labelY = cy + ch / 2
@@ -423,10 +437,10 @@ export function FloorplanCanvas({
 
               {/* Non-rentable zones */}
               {layout.zones.map((zone) => {
-                const zx = zone.x * pixelsPerMeter
-                const zy = zone.y * pixelsPerMeter
-                const zw = zone.width * pixelsPerMeter
-                const zh = zone.height * pixelsPerMeter
+                const zx = zone.x * scale
+                const zy = zone.y * scale
+                const zw = zone.width * scale
+                const zh = zone.height * scale
 
                 return (
                   <g key={zone.id}>
@@ -478,7 +492,7 @@ export function FloorplanCanvas({
                     key={placement.unitId}
                     unit={unit}
                     placement={placement}
-                    scale={pixelsPerMeter}
+                    scale={scale}
                     isSelected={selectedUnit.id === unit.id}
                     isDimmed={!isUnitMatching(unit)}
                     onSelect={onSelectUnit}
@@ -488,18 +502,18 @@ export function FloorplanCanvas({
 
               {/* Entrances / Gates / Loading Bays */}
               {layout.entrances.map((entrance) =>
-                renderEntrance(entrance, pixelsPerMeter),
+                renderEntrance(entrance, scale),
               )}
 
               {/* True-to-scale 1 m bar (sits in dedicated bottom band below any bottom entrances) */}
               <g
-                transform={`translate(${interiorWidthPx - pixelsPerMeter}, ${interiorHeightPx + padBottom + 4})`}
+                transform={`translate(${interiorWidthPx - scale}, ${interiorHeightPx + padBottom + 4})`}
                 aria-label="1 meter"
               >
                 <line
                   x1={0}
                   y1={0}
-                  x2={pixelsPerMeter}
+                  x2={scale}
                   y2={0}
                   stroke="#64748b"
                   strokeWidth={1.5}
@@ -513,15 +527,15 @@ export function FloorplanCanvas({
                   strokeWidth={1.5}
                 />
                 <line
-                  x1={pixelsPerMeter}
+                  x1={scale}
                   y1={-3.5}
-                  x2={pixelsPerMeter}
+                  x2={scale}
                   y2={3.5}
                   stroke="#64748b"
                   strokeWidth={1.5}
                 />
                 <text
-                  x={pixelsPerMeter / 2}
+                  x={scale / 2}
                   y={15}
                   textAnchor="middle"
                   fill="#64748b"

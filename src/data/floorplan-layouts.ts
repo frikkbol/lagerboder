@@ -180,11 +180,80 @@ export const BURMAVEIEN_FLOORPLAN: FloorplanLayout = createFloorplan({
   })
   .build()
 
+/**
+ * Burmaveien 1 – 2. etasje / Mellometasje (5.300 m × 5.470 m interior, true-to-scale from CAD drawing).
+ *
+ * 6 units separated by 100 mm (0.1 m) partition walls around a central 1.40 m corridor,
+ * accessed via the stairs (Trapp) at the bottom-left.
+ */
+export const BURMAVEIEN_FLOORPLAN_2ETG: FloorplanLayout = createFloorplan({
+  id: 'burmaveien-2etg',
+  locationId: 'burmaveien',
+  name: '2. etasje',
+  width: 5.3,
+  height: 5.47,
+  pixelsPerMeter: 96,
+  unitsCatalog: STORAGE_UNITS,
+})
+  // Top-left wide unit (3.30 × 0.97 m, door opens south into corridor)
+  .unit({
+    unitId: '201',
+    x: 0,
+    y: 0,
+    doorSide: 'bottom',
+    doorOffset: 'end',
+  })
+
+  // Left column below 201 (2 units: 1.80 × 1.40 m each, doors open east into corridor)
+  .addColumn({
+    x: 0,
+    y: 1.07,
+    gap: WALL,
+    doorSide: 'right',
+    doorOffset: 'start',
+    units: ['202', '203'],
+  })
+
+  // Central vertical corridor (x = 1.80 + 0.10 = 1.90, width 1.40 m, height 4.40 m)
+  .corridor({
+    id: 'corridor-2etg',
+    x: 1.9,
+    y: 1.07,
+    width: 1.4,
+    height: 4.4,
+    label: 'Gang',
+    orientation: 'vertical',
+  })
+
+  // Right column (3 units: 1.90 × 2.47 m, 1.90 × 1.40 m, 1.90 × 1.40 m; doors open west)
+  .addColumn({
+    x: 3.4,
+    y: 0,
+    gap: WALL,
+    doorSide: 'left',
+    units: [
+      { unitId: '204', doorOffset: 'end' },
+      { unitId: '205', doorOffset: 'start' },
+      { unitId: '206', doorOffset: 'center' },
+    ],
+  })
+
+  // Stairs arriving from 1. etasje at bottom-left
+  .zone({
+    id: 'stairs-2etg',
+    label: 'Trapp',
+    x: 0,
+    y: 4.07,
+    width: 1.8,
+    height: 1.4,
+  })
+  .build()
+
 export const FLOORPLANS_BY_LOCATION: Record<
   StorageLocationId,
   readonly FloorplanLayout[]
 > = {
-  burmaveien: [BURMAVEIEN_FLOORPLAN],
+  burmaveien: [BURMAVEIEN_FLOORPLAN, BURMAVEIEN_FLOORPLAN_2ETG],
 }
 
 export function getFloorplansForLocation(

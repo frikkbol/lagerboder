@@ -15,12 +15,12 @@ export const LOCATIONS: Record<StorageLocation['id'], StorageLocation> = {
     address: 'Burmaveien 1',
     postalCode: '',
     city: 'Holmestrand',
-    floorDescription: '1. etasje',
+    floorDescription: '1. og 2. etasje',
     ceilingHeight: '2,70 m',
     driveIn: false,
     heated: true,
-    totalUnits: 18,
-    availableUnits: 13,
+    totalUnits: 24,
+    availableUnits: 18,
     features: [
       'Oppvarmet og tørt året rundt',
       'Traller står klare ved inngangen',
@@ -61,6 +61,7 @@ function createBurmaveienUnit(params: {
   price: number
   status: StorageUnit['status']
   availableDate: string
+  floor?: string
   tag?: string
 }): StorageUnit {
   const height = 2.7
@@ -79,7 +80,7 @@ function createBurmaveienUnit(params: {
       height,
     },
     doorWidth: 0.9,
-    floor: '1. Etasje',
+    floor: params.floor ?? '1. Etasje',
     tag: params.tag,
     capacitySummary: `Rommer ca. ${volume} m³ volum`,
     capacityItems: getCapacityItems(params.size),
@@ -260,6 +261,68 @@ export const STORAGE_UNITS: StorageUnit[] = [
     price: 590,
     status: 'available',
     availableDate: 'Ledig nå',
+  }),
+
+  // Burmaveien 1 – 2. etasje / Mellometasje (6 units matching CAD floorplan)
+  createBurmaveienUnit({
+    id: '201',
+    size: 3.2,
+    width: 3.3,
+    length: 0.97,
+    price: 690,
+    status: 'available',
+    availableDate: 'Ledig nå',
+    floor: '2. Etasje',
+  }),
+  createBurmaveienUnit({
+    id: '202',
+    size: 2.5,
+    width: 1.8,
+    length: 1.4,
+    price: 590,
+    status: 'available',
+    availableDate: 'Ledig nå',
+    floor: '2. Etasje',
+  }),
+  createBurmaveienUnit({
+    id: '203',
+    size: 2.5,
+    width: 1.8,
+    length: 1.4,
+    price: 590,
+    status: 'occupied',
+    availableDate: 'Utleid på ubestemt tid',
+    floor: '2. Etasje',
+  }),
+  createBurmaveienUnit({
+    id: '204',
+    size: 4.7,
+    width: 1.9,
+    length: 2.47,
+    price: 950,
+    status: 'available',
+    availableDate: 'Ledig nå',
+    floor: '2. Etasje',
+  }),
+  createBurmaveienUnit({
+    id: '205',
+    size: 2.7,
+    width: 1.9,
+    length: 1.4,
+    price: 620,
+    status: 'available',
+    availableDate: 'Ledig nå',
+    floor: '2. Etasje',
+  }),
+  createBurmaveienUnit({
+    id: '206',
+    size: 2.7,
+    width: 1.9,
+    length: 1.4,
+    price: 620,
+    status: 'available',
+    availableDate: 'Ledig nå',
+    floor: '2. Etasje',
   }),
 ]
 

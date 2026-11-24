@@ -1,6 +1,10 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
-import { BURMAVEIEN_FLOORPLAN } from '#/data/floorplan-layouts'
+import {
+  BURMAVEIEN_FLOORPLAN,
+  BURMAVEIEN_FLOORPLAN_2ETG,
+  FLOORPLANS_BY_LOCATION,
+} from '#/data/floorplan-layouts'
 import { STORAGE_UNITS } from '#/data/storage-data'
 import {
   FloorplanValidationError,
@@ -9,21 +13,35 @@ import {
 } from '#/lib/floorplan-builder'
 
 describe('createFloorplan builder & validation', () => {
-  it('builds BURMAVEIEN_FLOORPLAN (1. etasje) with all 18 units and zero validation issues', () => {
+  it('builds BURMAVEIEN_FLOORPLAN (1. etasje) and BURMAVEIEN_FLOORPLAN_2ETG (2. etasje) covering all 24 units', () => {
     assert.equal(BURMAVEIEN_FLOORPLAN.width, 11.9)
     assert.equal(BURMAVEIEN_FLOORPLAN.height, 11.86)
     assert.equal(BURMAVEIEN_FLOORPLAN.units.length, 18)
     assert.equal(BURMAVEIEN_FLOORPLAN.entrances.length, 3)
     assert.equal(BURMAVEIEN_FLOORPLAN.zones.length, 1)
 
-    const issues = validateFloorplan(BURMAVEIEN_FLOORPLAN, STORAGE_UNITS)
-    assert.deepEqual(issues, [])
+    assert.equal(BURMAVEIEN_FLOORPLAN_2ETG.width, 5.3)
+    assert.equal(BURMAVEIEN_FLOORPLAN_2ETG.height, 5.47)
+    assert.equal(BURMAVEIEN_FLOORPLAN_2ETG.units.length, 6)
+    assert.equal(BURMAVEIEN_FLOORPLAN_2ETG.corridors.length, 1)
+    assert.equal(BURMAVEIEN_FLOORPLAN_2ETG.zones.length, 1)
 
-    const placedIds = new Set(BURMAVEIEN_FLOORPLAN.units.map((u) => u.unitId))
+    assert.equal(FLOORPLANS_BY_LOCATION.burmaveien.length, 2)
+
+    assert.deepEqual(validateFloorplan(BURMAVEIEN_FLOORPLAN, STORAGE_UNITS), [])
+    assert.deepEqual(
+      validateFloorplan(BURMAVEIEN_FLOORPLAN_2ETG, STORAGE_UNITS),
+      [],
+    )
+
+    const placedIds = new Set([
+      ...BURMAVEIEN_FLOORPLAN.units.map((u) => u.unitId),
+      ...BURMAVEIEN_FLOORPLAN_2ETG.units.map((u) => u.unitId),
+    ])
     for (const unit of STORAGE_UNITS) {
       assert.ok(
         placedIds.has(unit.id),
-        `Expected unit ${unit.id} to be placed on BURMAVEIEN_FLOORPLAN`,
+        `Expected unit ${unit.id} to be placed on a Burmaveien floorplan`,
       )
     }
 
@@ -32,6 +50,13 @@ describe('createFloorplan builder & validation', () => {
     assert.ok(unit117)
     assert.equal(unit117.doorSide, 'bottom')
     assert.equal(unit117.doorOffset, 'end')
+
+    const unit201 = BURMAVEIEN_FLOORPLAN_2ETG.units.find(
+      (u) => u.unitId === '201',
+    )
+    assert.ok(unit201)
+    assert.equal(unit201.doorSide, 'bottom')
+    assert.equal(unit201.doorOffset, 'end')
   })
 
   it('resolves unit dimensions from catalog and supports rotation', () => {

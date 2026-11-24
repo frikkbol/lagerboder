@@ -66,6 +66,8 @@ export interface FloorplanLayout {
   height: number
   /** Background meter grid spacing in meters */
   gridStep: number
+  /** Optional default rendering scale in pixels per meter */
+  pixelsPerMeter?: number
   units: readonly FloorplanUnitPlacement[]
   corridors: readonly FloorplanCorridor[]
   entrances: readonly FloorplanEntrance[]
