@@ -19,8 +19,8 @@ export const LOCATIONS: Record<StorageLocation['id'], StorageLocation> = {
     ceilingHeight: '2,70 m',
     driveIn: false,
     heated: true,
-    totalUnits: 12,
-    availableUnits: 9,
+    totalUnits: 18,
+    availableUnits: 13,
     features: [
       'Oppvarmet og tørt året rundt',
       'Traller står klare ved inngangen',
@@ -29,202 +29,238 @@ export const LOCATIONS: Record<StorageLocation['id'], StorageLocation> = {
   },
 }
 
-const DEFAULT_CAPACITY_ITEMS: Record<number, string[]> = {
-  5: [
+const DEFAULT_CAPACITY_ITEMS: Record<string, string[]> = {
+  small: [
+    'Passer for sesongutstyr, dekk, ski og flyttekasser',
+    'Plass til ca. 15–20 flyttekasser',
+    'Smart og rimelig ekstra bodplass',
+  ],
+  medium: [
     'Passer for en hybel eller liten leilighet',
     'Plass til ca. 25–35 flyttekasser',
     'Fint til sykler, ski, dekk og hagemøbler',
   ],
-  6.5: [
+  large: [
     'Passer for en 1–2 roms leilighet',
     'Plass til ca. 35–45 flyttekasser, seng og sofa',
     'Fint til sesongutstyr, møbler og esker',
   ],
-  7.5: [
-    'Passer for en 2–3 roms leilighet',
-    'Plass til ca. 50–65 flyttekasser og hvitevarer',
-    'God plass ved oppussing eller flytting',
-  ],
-  9: [
-    'Passer for en 3–4 roms bolig eller rekkehus',
-    'Plass til et helt flyttelass og store møbler',
-    'Kan også slås sammen om du trenger mer plass',
-  ],
+}
+
+function getCapacityItems(size: number): string[] {
+  if (size < 3.5) return DEFAULT_CAPACITY_ITEMS.small
+  if (size < 5.5) return DEFAULT_CAPACITY_ITEMS.medium
+  return DEFAULT_CAPACITY_ITEMS.large
+}
+
+function createBurmaveienUnit(params: {
+  id: string
+  size: number
+  width: number
+  length: number
+  price: number
+  status: StorageUnit['status']
+  availableDate: string
+  tag?: string
+}): StorageUnit {
+  const height = 2.7
+  const volume = (params.size * height).toFixed(1).replace('.', ',')
+  return {
+    id: params.id,
+    locationId: 'burmaveien',
+    locationName: 'Burmaveien 1',
+    size: params.size,
+    price: params.price,
+    status: params.status,
+    availableDate: params.availableDate,
+    dimensions: {
+      width: params.width,
+      length: params.length,
+      height,
+    },
+    doorWidth: 0.9,
+    floor: '1. Etasje',
+    tag: params.tag,
+    capacitySummary: `Rommer ca. ${volume} m³ volum`,
+    capacityItems: getCapacityItems(params.size),
+  }
 }
 
 export const STORAGE_UNITS: StorageUnit[] = [
-  // Burmaveien 1 (12 units)
-  {
+  // Burmaveien 1 – 1. etasje (18 units matching CAD floorplan)
+  // Top row (7 units, depth 3.10 m)
+  createBurmaveienUnit({
     id: '101',
-    locationId: 'burmaveien',
-    locationName: 'Burmaveien 1',
-    size: 5.0,
-    price: 990,
+    size: 5.3,
+    width: 1.713,
+    length: 3.1,
+    price: 1050,
     status: 'available',
     availableDate: 'Ledig nå',
-    dimensions: { width: 2.0, length: 2.5, height: 2.7 },
-    doorWidth: 1.1,
-    floor: '1. Etasje',
-    capacitySummary: 'Rommer ca. 13,5 m³ volum',
-    capacityItems: DEFAULT_CAPACITY_ITEMS[5],
-  },
-  {
+  }),
+  createBurmaveienUnit({
     id: '102',
-    locationId: 'burmaveien',
-    locationName: 'Burmaveien 1',
-    size: 6.5,
-    price: 1290,
+    size: 4.9,
+    width: 1.59,
+    length: 3.1,
+    price: 990,
     status: 'occupied',
     availableDate: 'Utleid på ubestemt tid',
-    dimensions: { width: 2.2, length: 2.95, height: 2.7 },
-    doorWidth: 1.1,
-    floor: '1. Etasje',
-    capacitySummary: 'Rommer ca. 17,5 m³ volum',
-    capacityItems: DEFAULT_CAPACITY_ITEMS[6.5],
-  },
-  {
+  }),
+  createBurmaveienUnit({
     id: '103',
-    locationId: 'burmaveien',
-    locationName: 'Burmaveien 1',
-    size: 7.5,
-    price: 1490,
+    size: 4.6,
+    width: 1.498,
+    length: 3.1,
+    price: 940,
     status: 'soon',
     availableDate: '01. mai 2026',
-    dimensions: { width: 2.5, length: 3.0, height: 2.7 },
-    doorWidth: 1.1,
-    floor: '1. Etasje',
-    capacitySummary: 'Rommer ca. 20,2 m³ volum',
-    capacityItems: DEFAULT_CAPACITY_ITEMS[7.5],
-  },
-  {
+  }),
+  createBurmaveienUnit({
     id: '104',
-    locationId: 'burmaveien',
-    locationName: 'Burmaveien 1',
-    size: 6.5,
-    price: 1290,
+    size: 5.0,
+    width: 1.597,
+    length: 3.1,
+    price: 990,
     status: 'available',
     availableDate: 'Ledig nå',
-    dimensions: { width: 2.2, length: 2.95, height: 2.7 },
-    doorWidth: 1.1,
-    floor: '1. Etasje',
     tag: 'MEST POPULÆR',
-    capacitySummary: 'Rommer ca. 17,5 m³ volum',
-    capacityItems: DEFAULT_CAPACITY_ITEMS[6.5],
-  },
-  {
+  }),
+  createBurmaveienUnit({
     id: '105',
-    locationId: 'burmaveien',
-    locationName: 'Burmaveien 1',
     size: 5.0,
+    width: 1.597,
+    length: 3.1,
     price: 990,
     status: 'available',
     availableDate: 'Ledig nå',
-    dimensions: { width: 2.0, length: 2.5, height: 2.7 },
-    doorWidth: 1.1,
-    floor: '1. Etasje',
-    capacitySummary: 'Rommer ca. 13,5 m³ volum',
-    capacityItems: DEFAULT_CAPACITY_ITEMS[5],
-  },
-  {
+  }),
+  createBurmaveienUnit({
     id: '106',
-    locationId: 'burmaveien',
-    locationName: 'Burmaveien 1',
-    size: 9.0,
-    price: 1790,
-    status: 'available',
-    availableDate: 'Ledig nå',
-    dimensions: { width: 3.0, length: 3.0, height: 2.7 },
-    doorWidth: 1.1,
-    floor: '1. Etasje',
-    tag: 'XL',
-    capacitySummary: 'Rommer ca. 24,3 m³ volum',
-    capacityItems: DEFAULT_CAPACITY_ITEMS[9],
-  },
-  {
-    id: '107',
-    locationId: 'burmaveien',
-    locationName: 'Burmaveien 1',
-    size: 6.5,
-    price: 1290,
-    status: 'occupied',
-    availableDate: 'Utleid på ubestemt tid',
-    dimensions: { width: 2.2, length: 2.95, height: 2.7 },
-    doorWidth: 1.1,
-    floor: '1. Etasje',
-    capacitySummary: 'Rommer ca. 17,5 m³ volum',
-    capacityItems: DEFAULT_CAPACITY_ITEMS[6.5],
-  },
-  {
-    id: '108',
-    locationId: 'burmaveien',
-    locationName: 'Burmaveien 1',
-    size: 7.5,
-    price: 1490,
-    status: 'available',
-    availableDate: 'Ledig nå',
-    dimensions: { width: 2.5, length: 3.0, height: 2.7 },
-    doorWidth: 1.1,
-    floor: '1. Etasje',
-    capacitySummary: 'Rommer ca. 20,2 m³ volum',
-    capacityItems: DEFAULT_CAPACITY_ITEMS[7.5],
-  },
-  {
-    id: '109',
-    locationId: 'burmaveien',
-    locationName: 'Burmaveien 1',
-    size: 5.0,
+    size: 4.9,
+    width: 1.594,
+    length: 3.1,
     price: 990,
+    status: 'available',
+    availableDate: 'Ledig nå',
+  }),
+  createBurmaveienUnit({
+    id: '107',
+    size: 5.3,
+    width: 1.711,
+    length: 3.1,
+    price: 1050,
     status: 'occupied',
     availableDate: 'Utleid på ubestemt tid',
-    dimensions: { width: 2.0, length: 2.5, height: 2.7 },
-    doorWidth: 1.1,
-    floor: '1. Etasje',
-    capacitySummary: 'Rommer ca. 13,5 m³ volum',
-    capacityItems: DEFAULT_CAPACITY_ITEMS[5],
-  },
-  {
+  }),
+
+  // Middle-left block (4 units: 2×2)
+  createBurmaveienUnit({
+    id: '108',
+    size: 4.6,
+    width: 1.58,
+    length: 2.9,
+    price: 940,
+    status: 'available',
+    availableDate: 'Ledig nå',
+  }),
+  createBurmaveienUnit({
+    id: '109',
+    size: 4.6,
+    width: 1.58,
+    length: 2.9,
+    price: 940,
+    status: 'available',
+    availableDate: 'Ledig nå',
+  }),
+  createBurmaveienUnit({
     id: '110',
-    locationId: 'burmaveien',
-    locationName: 'Burmaveien 1',
-    size: 6.5,
+    size: 4.4,
+    width: 1.58,
+    length: 2.8,
+    price: 890,
+    status: 'occupied',
+    availableDate: 'Utleid på ubestemt tid',
+  }),
+  createBurmaveienUnit({
+    id: '111',
+    size: 4.4,
+    width: 1.58,
+    length: 2.8,
+    price: 890,
+    status: 'available',
+    availableDate: 'Ledig nå',
+  }),
+
+  // Middle-right block (4 units, depth 3.63 m)
+  createBurmaveienUnit({
+    id: '112',
+    size: 6.6,
+    width: 1.83,
+    length: 3.63,
     price: 1290,
     status: 'available',
     availableDate: 'Ledig nå',
-    dimensions: { width: 2.2, length: 2.95, height: 2.7 },
-    doorWidth: 1.1,
-    floor: '1. Etasje',
-    capacitySummary: 'Rommer ca. 17,5 m³ volum',
-    capacityItems: DEFAULT_CAPACITY_ITEMS[6.5],
-  },
-  {
-    id: '111',
-    locationId: 'burmaveien',
-    locationName: 'Burmaveien 1',
-    size: 9.0,
-    price: 1790,
+    tag: 'XL',
+  }),
+  createBurmaveienUnit({
+    id: '113',
+    size: 5.8,
+    width: 1.596,
+    length: 3.63,
+    price: 1150,
+    status: 'available',
+    availableDate: 'Ledig nå',
+  }),
+  createBurmaveienUnit({
+    id: '114',
+    size: 5.8,
+    width: 1.593,
+    length: 3.63,
+    price: 1150,
     status: 'soon',
     availableDate: '15. mai 2026',
-    dimensions: { width: 3.0, length: 3.0, height: 2.7 },
-    doorWidth: 1.1,
-    floor: '1. Etasje',
-    tag: 'XL',
-    capacitySummary: 'Rommer ca. 24,3 m³ volum',
-    capacityItems: DEFAULT_CAPACITY_ITEMS[9],
-  },
-  {
-    id: '112',
-    locationId: 'burmaveien',
-    locationName: 'Burmaveien 1',
-    size: 5.0,
-    price: 990,
+  }),
+  createBurmaveienUnit({
+    id: '115',
+    size: 6.0,
+    width: 1.66,
+    length: 3.63,
+    price: 1190,
     status: 'available',
     availableDate: 'Ledig nå',
-    dimensions: { width: 2.0, length: 2.5, height: 2.7 },
-    doorWidth: 1.1,
-    floor: '1. Etasje',
-    capacitySummary: 'Rommer ca. 13,5 m³ volum',
-    capacityItems: DEFAULT_CAPACITY_ITEMS[5],
-  },
+  }),
+
+  // Lower-right row (2 horizontal units, depth 2.00 m)
+  createBurmaveienUnit({
+    id: '116',
+    size: 6.0,
+    width: 2.955,
+    length: 2.0,
+    price: 1190,
+    status: 'available',
+    availableDate: 'Ledig nå',
+  }),
+  createBurmaveienUnit({
+    id: '117',
+    size: 6.1,
+    width: 3.046,
+    length: 2.0,
+    price: 1220,
+    status: 'available',
+    availableDate: 'Ledig nå',
+  }),
+
+  // Bottom-right small unit (1.78 × 1.40 m)
+  createBurmaveienUnit({
+    id: '118',
+    size: 2.5,
+    width: 1.78,
+    length: 1.4,
+    price: 590,
+    status: 'available',
+    availableDate: 'Ledig nå',
+  }),
 ]
 
 export const PRICING_TIERS: PricingTier[] = [
