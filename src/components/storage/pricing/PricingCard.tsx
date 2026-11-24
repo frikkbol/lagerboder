@@ -80,7 +80,7 @@ export function PricingCard({
         className={cn(
           'w-full font-semibold rounded-xl',
           isPopular
-            ? 'bg-primary hover:bg-[#c93d29] text-white'
+            ? 'bg-primary hover:bg-brand-hover text-white'
             : 'hover:bg-slate-100 text-slate-800 border-slate-300',
         )}
       >

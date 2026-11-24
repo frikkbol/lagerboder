@@ -53,7 +53,7 @@ export function BrandLogo({
             fill="currentColor"
           />
           {/* Locker latch handle */}
-          <rect x="17" y="24" width="6" height="4" rx="1" fill="#E04E39" />
+          <rect x="17" y="24" width="6" height="4" rx="1" fill="#1D4ED8" />
         </svg>
       </div>
 

@@ -12,19 +12,20 @@ import { cn } from '#/lib/utils'
 export interface InteractiveMapSectionProps extends React.ComponentProps<'section'> {
   locationId?: StorageLocationId
   initialUnitId?: string
+  units?: readonly StorageUnit[]
 }
 
 export function InteractiveMapSection({
   locationId = 'burmaveien',
   initialUnitId = '104',
+  units = STORAGE_UNITS,
   className,
   ...props
 }: InteractiveMapSectionProps) {
   const location = LOCATIONS[locationId]
   const locationUnits = React.useMemo(
-    () =>
-      STORAGE_UNITS.filter((u) => String(u.locationId) === String(locationId)),
-    [locationId],
+    () => units.filter((u) => String(u.locationId) === String(locationId)),
+    [units, locationId],
   )
   const floorplans = React.useMemo(
     () => getFloorplansForLocation(locationId),

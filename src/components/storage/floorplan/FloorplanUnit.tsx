@@ -24,6 +24,7 @@ export function FloorplanUnit({
   onSelect,
 }: FloorplanUnitProps) {
   const [isHovered, setIsHovered] = React.useState(false)
+  const hatchPatternId = React.useId()
 
   const isAvailable = unit.status === 'available'
   const isSoon = unit.status === 'soon'
@@ -35,15 +36,15 @@ export function FloorplanUnit({
   const width = Math.max(0, placement.width * scale - wallInset * 2)
   const height = Math.max(0, placement.height * scale - wallInset * 2)
 
-  let fill = '#ffffff'
-  let stroke = '#6ee7b7' // emerald-300
-  let strokeWidth = 1.5
-  let sizeColor = '#0f172a' // slate-900
-  let statusColor = '#047857' // emerald-700
-  let priceColor = '#334155' // slate-700
-  let dotColor = '#10b981' // emerald-500
-  let idColor = '#94a3b8' // slate-400
-  let doorColor = '#10b981'
+  let fill = '#d1fae5'
+  let stroke = '#10b981'
+  let strokeWidth = 2
+  let sizeColor = '#064e3b'
+  let statusColor = '#047857'
+  let priceColor = '#065f46'
+  let dotColor = '#10b981'
+  let idColor = '#059669'
+  let doorColor = '#059669'
 
   if (isSelected) {
     fill = '#0f172a' // slate-900
@@ -52,36 +53,39 @@ export function FloorplanUnit({
     sizeColor = '#ffffff'
     statusColor = '#cbd5e1' // slate-300
     priceColor = '#ffffff'
-    dotColor = isAvailable ? '#10b981' : isSoon ? '#f59e0b' : '#ef4444'
+    dotColor = isAvailable ? '#34d399' : isSoon ? '#fbbf24' : '#94a3b8'
     idColor = '#94a3b8'
     doorColor = '#ffffff'
   } else if (isAvailable) {
-    fill = isHovered ? '#ecfdf5' : '#ffffff'
-    stroke = isHovered ? '#10b981' : '#6ee7b7'
-    sizeColor = '#0f172a'
-    statusColor = '#047857'
-    priceColor = '#334155'
+    fill = isHovered ? '#a7f3d0' : '#d1fae5' // emerald-200 / emerald-100
+    stroke = isHovered ? '#059669' : '#10b981' // emerald-600 / emerald-500
+    strokeWidth = 2
+    sizeColor = '#064e3b' // emerald-950
+    statusColor = '#047857' // emerald-700
+    priceColor = '#065f46' // emerald-800
     dotColor = '#10b981'
-    idColor = '#94a3b8'
-    doorColor = '#10b981'
+    idColor = '#059669' // emerald-600
+    doorColor = '#059669'
   } else if (isSoon) {
-    fill = isHovered ? '#fffbeb' : '#ffffff'
-    stroke = isHovered ? '#f59e0b' : '#fcd34d'
-    sizeColor = '#0f172a'
+    fill = isHovered ? '#fde68a' : '#fef3c7' // amber-200 / amber-100
+    stroke = isHovered ? '#d97706' : '#f59e0b' // amber-600 / amber-500
+    strokeWidth = 1.75
+    sizeColor = '#78350f' // amber-900
     statusColor = '#b45309' // amber-700
-    priceColor = '#334155'
+    priceColor = '#92400e' // amber-800
     dotColor = '#f59e0b'
-    idColor = '#94a3b8'
-    doorColor = '#f59e0b'
+    idColor = '#b45309'
+    doorColor = '#d97706'
   } else {
-    fill = isHovered ? '#b91c1c' : '#dc2626' // red-700 / red-600
-    stroke = '#b91c1c'
-    sizeColor = '#ffffff'
-    statusColor = '#fee2e2' // red-100
-    priceColor = '#ffffff'
-    dotColor = 'rgba(255,255,255,0.85)'
-    idColor = 'rgba(255,255,255,0.7)'
-    doorColor = 'rgba(255,255,255,0.85)'
+    fill = isHovered ? '#e2e8f0' : '#f1f5f9' // slate-200 / slate-100
+    stroke = isHovered ? '#94a3b8' : '#cbd5e1' // slate-400 / slate-300
+    strokeWidth = 1.25
+    sizeColor = '#64748b' // slate-500
+    statusColor = '#94a3b8' // slate-400
+    priceColor = '#94a3b8'
+    dotColor = '#94a3b8'
+    idColor = '#94a3b8'
+    doorColor = '#94a3b8'
   }
 
   const getStatusText = () => {
@@ -225,8 +229,48 @@ export function FloorplanUnit({
         fill={fill}
         stroke={stroke}
         strokeWidth={strokeWidth}
-        style={{ transition: 'fill 150ms ease, stroke 150ms ease' }}
+        style={{
+          transition: 'fill 150ms ease, stroke 150ms ease',
+          filter:
+            isAvailable && !isSelected
+              ? 'drop-shadow(0 1px 2px rgba(16, 185, 129, 0.18))'
+              : undefined,
+        }}
       />
+
+      {/* Subtle diagonal hatching for occupied units so they visually recede */}
+      {isOccupied && !isSelected && (
+        <>
+          <defs>
+            <pattern
+              id={hatchPatternId}
+              width={8}
+              height={8}
+              patternTransform="rotate(45)"
+              patternUnits="userSpaceOnUse"
+            >
+              <line
+                x1={0}
+                y1={0}
+                x2={0}
+                y2={8}
+                stroke="#cbd5e1"
+                strokeWidth={1.25}
+              />
+            </pattern>
+          </defs>
+          <rect
+            x={x + 0.75}
+            y={y + 0.75}
+            width={Math.max(0, width - 1.5)}
+            height={Math.max(0, height - 1.5)}
+            rx={7.25}
+            fill={`url(#${hatchPatternId})`}
+            opacity={0.55}
+            style={{ pointerEvents: 'none' }}
+          />
+        </>
+      )}
 
       {/* Door opening indicator */}
       {renderDoorIndicator()}
@@ -257,17 +301,17 @@ export function FloorplanUnit({
               >
                 {formatUnitSize(unit.size)} m²
               </span>
-              <span
+              {/* <span
                 className="rounded-full shrink-0 mt-1"
                 style={{
                   width: '8.5px',
                   height: '8.5px',
                   backgroundColor: dotColor,
                 }}
-              />
+              /> */}
             </div>
 
-            {height >= 115 && (
+            {height >= 78 && (
               <div
                 className="font-medium leading-tight break-words mt-0.5"
                 style={{

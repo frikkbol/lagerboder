@@ -241,7 +241,7 @@ export function UnitDetailPanel({
             'w-full mt-1 font-bold rounded-xl text-white',
             isOccupied
               ? 'bg-slate-800 hover:bg-slate-900'
-              : 'bg-primary hover:bg-[#c93d29]',
+              : 'bg-primary hover:bg-brand-hover',
           )}
         >
           {isSubmitting ? 'Sender...' : getCtaText()}

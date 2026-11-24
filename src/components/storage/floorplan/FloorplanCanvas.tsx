@@ -253,15 +253,15 @@ export function FloorplanCanvas({
         {/* Color legend */}
         <div className="flex items-center gap-4 text-xs font-medium text-slate-600">
           <div className="flex items-center gap-1.5">
-            <span className="size-3 rounded-full bg-emerald-500" />
+            <span className="size-3 rounded-sm bg-emerald-200 border border-emerald-500" />
             <span>Ledig</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="size-3 rounded-full bg-amber-500" />
+            <span className="size-3 rounded-sm bg-amber-100 border border-amber-500" />
             <span>Ledig snart</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="size-3 rounded-full bg-red-600" />
+            <span className="size-3 rounded-sm bg-slate-200 border border-slate-300" />
             <span>Utleid</span>
           </div>
         </div>

@@ -81,7 +81,7 @@ export function WhyRentSection({ className, ...props }: WhyRentSectionProps) {
             <Button
               onClick={handleContactClick}
               size="lg"
-              className="mt-6 w-full font-bold bg-primary hover:bg-[#c93d29] text-white"
+              className="mt-6 w-full font-bold bg-primary hover:bg-brand-hover text-white"
             >
               Ta kontakt for større plass
             </Button>

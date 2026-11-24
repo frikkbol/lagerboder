@@ -35,8 +35,7 @@ export function UnitCard({
     statusStyles =
       'bg-white text-slate-900 border-amber-300 hover:border-amber-500 hover:bg-amber-50/40'
   } else {
-    statusStyles =
-      'bg-red-600 text-white border-red-700 hover:bg-red-700'
+    statusStyles = 'bg-red-600 text-white border-red-700 hover:bg-red-700'
   }
 
   const getStatusText = () => {

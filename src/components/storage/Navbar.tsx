@@ -109,7 +109,7 @@ export function Navbar({ className, onReserveClick, ...props }: NavbarProps) {
           <Button
             onClick={handleActionClick}
             size="sm"
-            className="font-semibold rounded-full shadow-sm hover:shadow transition-all bg-primary hover:bg-[#c93d29] text-white"
+            className="font-semibold rounded-full shadow-sm hover:shadow transition-all bg-primary hover:bg-brand-hover text-white"
           >
             <span>Lei bod nå</span>
             <ArrowRight className="size-3.5 ml-0.5" />
@@ -159,7 +159,7 @@ export function Navbar({ className, onReserveClick, ...props }: NavbarProps) {
             </a>
             <Button
               onClick={handleActionClick}
-              className="w-full font-semibold rounded-lg bg-primary hover:bg-[#c93d29] text-white"
+              className="w-full font-semibold rounded-lg bg-primary hover:bg-brand-hover text-white"
             >
               Finn og reserver bod på kartet
             </Button>

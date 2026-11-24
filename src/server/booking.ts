@@ -1,7 +1,7 @@
 import { createServerFn } from '@tanstack/react-start'
 import { Resend } from 'resend'
 import { z } from 'zod'
-import { STORAGE_UNITS } from '#/data/storage-data'
+import { loadStorageUnits } from '#/server/storage-units'
 
 const bookingRequestSchema = z.object({
   unitId: z.string().min(1, 'Ugyldig bod'),
@@ -41,7 +41,8 @@ export const submitBookingRequest = createServerFn({ method: 'POST' })
       return { ok: true as const }
     }
 
-    const unit = STORAGE_UNITS.find((u) => u.id === data.unitId)
+    const units = await loadStorageUnits()
+    const unit = units.find((u) => u.id === data.unitId)
     if (!unit) {
       throw new Error('Fant ikke den valgte boden.')
     }

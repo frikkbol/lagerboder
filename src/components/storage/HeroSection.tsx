@@ -59,7 +59,7 @@ export function HeroSection({
           <Button
             onClick={handleScrollToMap}
             size="lg"
-            className="font-bold px-7 h-12 rounded-xl shadow-sm bg-primary hover:bg-[#c93d29] text-white flex items-center gap-2 text-base"
+            className="font-bold px-7 h-12 rounded-xl shadow-sm bg-primary hover:bg-brand-hover text-white flex items-center gap-2 text-base"
           >
             <span>Finn ledig bod</span>
             <ArrowDown className="size-4" />

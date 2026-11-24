@@ -105,8 +105,8 @@ export const STORAGE_UNITS: StorageUnit[] = [
     width: 1.59,
     length: 3.1,
     price: 990,
-    status: 'occupied',
-    availableDate: 'Utleid på ubestemt tid',
+    status: 'available',
+    availableDate: 'Ledig nå',
   }),
   createBurmaveienUnit({
     id: '103',
@@ -114,8 +114,8 @@ export const STORAGE_UNITS: StorageUnit[] = [
     width: 1.498,
     length: 3.1,
     price: 940,
-    status: 'soon',
-    availableDate: '01. mai 2026',
+    status: 'available',
+    availableDate: 'Ledig nå',
   }),
   createBurmaveienUnit({
     id: '104',
@@ -151,8 +151,8 @@ export const STORAGE_UNITS: StorageUnit[] = [
     width: 1.711,
     length: 3.1,
     price: 1050,
-    status: 'occupied',
-    availableDate: 'Utleid på ubestemt tid',
+    status: 'available',
+    availableDate: 'Ledig nå',
   }),
 
   // Middle-left block (4 units: 2×2)
@@ -180,7 +180,7 @@ export const STORAGE_UNITS: StorageUnit[] = [
     width: 1.58,
     length: 2.8,
     price: 890,
-    status: 'occupied',
+    status: 'available',
     availableDate: 'Utleid på ubestemt tid',
   }),
   createBurmaveienUnit({
@@ -200,7 +200,7 @@ export const STORAGE_UNITS: StorageUnit[] = [
     width: 1.83,
     length: 3.63,
     price: 1290,
-    status: 'available',
+    status: 'occupied',
     availableDate: 'Ledig nå',
     tag: 'XL',
   }),
@@ -219,7 +219,7 @@ export const STORAGE_UNITS: StorageUnit[] = [
     width: 1.593,
     length: 3.63,
     price: 1150,
-    status: 'soon',
+    status: 'available',
     availableDate: '15. mai 2026',
   }),
   createBurmaveienUnit({
@@ -290,7 +290,7 @@ export const STORAGE_UNITS: StorageUnit[] = [
     width: 1.8,
     length: 1.4,
     price: 590,
-    status: 'occupied',
+    status: 'available',
     availableDate: 'Utleid på ubestemt tid',
     floor: '2. Etasje',
   }),

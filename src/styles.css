@@ -13,7 +13,7 @@
   --card-foreground: #0b1c30;
   --popover: #ffffff;
   --popover-foreground: #0b1c30;
-  --primary: #e04e39;
+  --primary: #1d4ed8;
   --primary-foreground: #ffffff;
   --secondary: #f1f5f9;
   --secondary-foreground: #1e293b;
@@ -158,9 +158,9 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  --color-brand: #e04e39;
-  --color-brand-hover: #c93d29;
-  --color-brand-light: #fee2e2;
+  --color-brand: #1d4ed8;
+  --color-brand-hover: #1e40af;
+  --color-brand-light: #dbeafe;
   --color-navy: #1e293b;
   --color-teal: #0f766e;
   --color-unit-available: #16a34a;

@@ -84,7 +84,7 @@ export function BookingModal({
         <DialogFooter className="mt-2">
           <Button
             onClick={onClose}
-            className="w-full font-bold bg-primary hover:bg-[#c93d29] text-white"
+            className="w-full font-bold bg-primary hover:bg-brand-hover text-white"
           >
             Ferdig
           </Button>
