@@ -19,18 +19,27 @@ export interface UnitDetailPanelProps extends React.ComponentProps<'div'> {
   onBookUnit: (unit: StorageUnit, data: BookingFormData) => void
 }
 
+function getTodayDateString(): string {
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Europe/Oslo',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(new Date())
+}
+
 export function UnitDetailPanel({
   unit,
   onBookUnit,
   className,
   ...props
 }: UnitDetailPanelProps) {
-  const [formData, setFormData] = React.useState<BookingFormData>({
+  const [formData, setFormData] = React.useState<BookingFormData>(() => ({
     fullName: '',
     phone: '',
     email: '',
-    moveInDate: '2026-05-01',
-  })
+    moveInDate: getTodayDateString(),
+  }))
   const [website, setWebsite] = React.useState('')
   const [isSubmitting, setIsSubmitting] = React.useState(false)
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null)
@@ -210,7 +219,7 @@ export function UnitDetailPanel({
               htmlFor="book-date"
               className="text-xs text-slate-500 font-medium mb-1 block"
             >
-              Ønsket startdato
+              Ønsket startdato for leie av bod
             </Label>
             <Input
               id="book-date"

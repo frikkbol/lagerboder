@@ -32,7 +32,7 @@ export function HeroSection({
   }
 
   const highlights = [
-    'Tørt og oppvarmet hele året',
+    'Tørt og temperert hele året',
     'Tilgang hele døgnet',
     'Ingen bindingstid',
   ]

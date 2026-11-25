@@ -378,7 +378,7 @@ export const PRICING_TIERS: PricingTier[] = [
 export const FACILITY_FEATURES: FacilityFeature[] = [
   {
     iconName: 'thermometer',
-    title: 'Tørt og oppvarmet',
+    title: 'Tørt og temperert',
     description:
       'Alle bodene står innendørs med jevn varme hele året. Møbler, klær og kasser holder seg tørre og fine.',
     tagline: 'Jevn varme året rundt',
